@@ -1,23 +1,19 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import Chart from './components/Chart';
+import Input from './components/Input';
+import ErrorMsg from './components/ErrorMsg'
+import { useSelector } from 'react-redux'
+
 
 function App() {
+  const data = useSelector(state => state.data);
+  const isError = useSelector(state => state.isError);
+  const msg = useSelector(state => state.msg)
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Input />
+      {data.length > 0 && <Chart data={data} />}
+      {isError && <ErrorMsg msg={msg} />}
     </div>
   );
 }
